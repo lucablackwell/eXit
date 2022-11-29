@@ -1,22 +1,5 @@
 <?php
 
-# Colours
-function cyan($text) {
-    return "\e[0;36m$text\e[0m";
-}
-
-function cyan_bold($text) {
-    return "\e[1;36m$text\e[0m";
-}
-
-function white_bold($text) {
-    return "\e[1;37m$text\e[0m";
-}
-
-function black($text) {
-    return "\e[1;30m$text\e[0m";
-}
-
 function slow_print($time, $line, $newline) {
     # Split the line into an array to be iterated over
     $line_arr = preg_split("//u", $line, -1, PREG_SPLIT_NO_EMPTY);
