@@ -136,23 +136,23 @@ if ($startup_input == 'eXit') {
     $note =  full_rand('exit while you still can', '.');
     while (!$desk_switch) {
         if (in_array($input, ['look at drawer', 'inspect drawer', 'look drawer', 'open drawer'])) {
-            if ($drawer_open_switch == false) {
+            if (!$drawer_open_switch) {
                 # If user hasn't tried the drawer and doesn't have the ruler
-                if ($drawer_tried_switch == false && $inventory['Ruler'] != 1) {
+                if (!$drawer_tried_switch && $inventory['Ruler'] != 1) {
                     slow_print($time_text, "\nThe drawer lies ajar, but something seems to be jamming it from opening fully.\nYou attempt to clear the blockage, but it is just out of reach.", true);
                     # User has tried the drawer
                     $drawer_tried_switch = true;
                     # If user has tried the drawer and doesn't have the ruler
-                } elseif ($drawer_tried_switch == true && $inventory['Ruler'] != 1) {
+                } elseif ($drawer_tried_switch && $inventory['Ruler'] != 1) {
                     slow_print($time_text, "\nThe drawer still won't budge. Perhaps there's some sort of instrument that could clear the blockage?", true);
                     # If user hasn't tried drawer and has the ruler
-                } elseif ($drawer_tried_switch == false && $inventory['Ruler'] == 1) {
+                } elseif (!$drawer_tried_switch && $inventory['Ruler'] == 1) {
                     slow_print($time_text, "\nThe drawer lies ajar, but something seems to be jamming it from opening fully.\nAfter a few tries, you use the ruler to pry the obstruction free.\nThe drawer is empty, but you discover that the blockage was caused by a small black box.\nIt has a lock on the side that requires 5 letters.\n(Say 'lock [combination]' to unlock.)", true);
                     $drawer_tried_switch = true;
                     # User has opened the drawer
                     $drawer_open_switch = true;
                     # If user has tried the drawer and has the ruler
-                } elseif ($drawer_tried_switch == true && $inventory['Ruler'] == 1) {
+                } elseif ($drawer_tried_switch && $inventory['Ruler'] == 1) {
                     slow_print($time_text, "\nAfter a few tries, you use the ruler to pry the obstruction free.\nThe drawer is empty, but you discover that the blockage was caused by a small black box.\nIt has a lock on the side that requires 5 letters.\n(Say 'lock [combination]' to unlock.)", true);
                     $drawer_open_switch = true;
                 }
@@ -162,7 +162,7 @@ if ($startup_input == 'eXit') {
             }
             $input = readline('> ');
             # If user has entered 'lock'
-        } elseif (substr_count($input, 'lock') == 1 && $drawer_open_switch == true) {
+        } elseif (substr_count($input, 'lock') == 1 && $drawer_open_switch) {
             # Find the code the user entered
             $combo = substr($input, 5, 5);
             # If the combination matches the user's code
@@ -366,8 +366,3 @@ if ($startup_input == 'eXit') {
     logo_space($time_logo);
 }
 echo "\n";
-
-
-
-
-?>
