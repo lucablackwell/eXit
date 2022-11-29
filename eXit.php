@@ -122,11 +122,10 @@ if ($startup_input == 'eXit') {
         if (in_array($input, ['look at bed', 'inspect bed', 'look bed'])) {
             slow_print($time_text, "\nThe sheets are dusty and coarse. It is obvious that no part of the bed has been cleaned for months.", true);
             # Allow the user to input again
-            $input = readline('> ');
         } else {
             slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
-            $input = readline('> ');
         }
+        $input = readline('> ');
     }
     slow_print($time_text, "\nYou approach the desk. The paint is off-white and flaky.\nIt seems to be clinging to the wood for dear life.\nA single sheet of paper and a wooden ruler lay on the desk.\nThe drawer of the desk is slightly open.", true);
     $input = readline('> ');
@@ -307,11 +306,10 @@ if ($startup_input == 'eXit') {
     while (!in_array($input, ['leave', 'look tunnel', 'go to tunnel', 'go tunnel', 'enter tunnel'])) {
         if (in_array($input, ['look', 'look around'])) {
             slow_print($time_text, "\nThe walls of the dungeon are damp.\nThe only way forward is through the tunnel.\nThe light on the other side is blinding.", true);
-            $input = readline('> ');
         } else {
             slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
-            $input = readline('> ');
         }
+        $input = readline('> ');
     }
     # If the user has already chosen to leave
     if ($left_switch) {
@@ -359,11 +357,10 @@ if ($startup_input == 'eXit') {
     while (!in_array($input, ['get on boat', 'look boat', 'look ship', 'look at boat', 'get on ship', 'look at ship'])) {
         if (in_array($input, ['read note', 'read', 'look note', 'look at note'])) {
             slow_print($time_text, "\nThe note says, \"Don't leave me here.\"\nIt is too late.", true);
-            $input = readline('> ');
         } else {
             slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
-            $input = readline('> ');
         }
+        $input = readline('> ');
     }
     slow_print($time_text, "\nAs you board the ship, you can't help but look back at the\ncollapsed remains of the tunnel.\nYou're heading to a new world, whether you like it or not.", true);
     logo_space($time_logo);
