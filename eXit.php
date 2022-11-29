@@ -1,22 +1,5 @@
 <?php
 
-# Colours
-function cyan($text) {
-    return "\e[0;36m$text\e[0m";
-}
-
-function cyan_bold($text) {
-    return "\e[1;36m$text\e[0m";
-}
-
-function white_bold($text) {
-    return "\e[1;37m$text\e[0m";
-}
-
-function black($text) {
-    return "\e[1;30m$text\e[0m";
-}
-
 function slow_print($time, $line, $newline) {
     # Split the line into an array to be iterated over
     $line_arr = preg_split("//u", $line, -1, PREG_SPLIT_NO_EMPTY);
@@ -139,11 +122,10 @@ if ($startup_input == 'eXit') {
         if (in_array($input, ['look at bed', 'inspect bed', 'look bed'])) {
             slow_print($time_text, "\nThe sheets are dusty and coarse. It is obvious that no part of the bed has been cleaned for months.", true);
             # Allow the user to input again
-            $input = readline('> ');
         } else {
             slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
-            $input = readline('> ');
         }
+        $input = readline('> ');
     }
     slow_print($time_text, "\nYou approach the desk. The paint is off-white and flaky.\nIt seems to be clinging to the wood for dear life.\nA single sheet of paper and a wooden ruler lay on the desk.\nThe drawer of the desk is slightly open.", true);
     $input = readline('> ');
@@ -154,23 +136,23 @@ if ($startup_input == 'eXit') {
     $note =  full_rand('exit while you still can', '.');
     while (!$desk_switch) {
         if (in_array($input, ['look at drawer', 'inspect drawer', 'look drawer', 'open drawer'])) {
-            if ($drawer_open_switch == false) {
+            if (!$drawer_open_switch) {
                 # If user hasn't tried the drawer and doesn't have the ruler
-                if ($drawer_tried_switch == false && $inventory['Ruler'] != 1) {
+                if (!$drawer_tried_switch && $inventory['Ruler'] != 1) {
                     slow_print($time_text, "\nThe drawer lies ajar, but something seems to be jamming it from opening fully.\nYou attempt to clear the blockage, but it is just out of reach.", true);
                     # User has tried the drawer
                     $drawer_tried_switch = true;
                     # If user has tried the drawer and doesn't have the ruler
-                } elseif ($drawer_tried_switch == true && $inventory['Ruler'] != 1) {
+                } elseif ($drawer_tried_switch && $inventory['Ruler'] != 1) {
                     slow_print($time_text, "\nThe drawer still won't budge. Perhaps there's some sort of instrument that could clear the blockage?", true);
                     # If user hasn't tried drawer and has the ruler
-                } elseif ($drawer_tried_switch == false && $inventory['Ruler'] == 1) {
+                } elseif (!$drawer_tried_switch && $inventory['Ruler'] == 1) {
                     slow_print($time_text, "\nThe drawer lies ajar, but something seems to be jamming it from opening fully.\nAfter a few tries, you use the ruler to pry the obstruction free.\nThe drawer is empty, but you discover that the blockage was caused by a small black box.\nIt has a lock on the side that requires 5 letters.\n(Say 'lock [combination]' to unlock.)", true);
                     $drawer_tried_switch = true;
                     # User has opened the drawer
                     $drawer_open_switch = true;
                     # If user has tried the drawer and has the ruler
-                } elseif ($drawer_tried_switch == true && $inventory['Ruler'] == 1) {
+                } elseif ($drawer_tried_switch && $inventory['Ruler'] == 1) {
                     slow_print($time_text, "\nAfter a few tries, you use the ruler to pry the obstruction free.\nThe drawer is empty, but you discover that the blockage was caused by a small black box.\nIt has a lock on the side that requires 5 letters.\n(Say 'lock [combination]' to unlock.)", true);
                     $drawer_open_switch = true;
                 }
@@ -180,7 +162,7 @@ if ($startup_input == 'eXit') {
             }
             $input = readline('> ');
             # If user has entered 'lock'
-        } elseif (substr_count($input, 'lock') == 1 && $drawer_open_switch == true) {
+        } elseif (substr_count($input, 'lock') == 1 && $drawer_open_switch) {
             # Find the code the user entered
             $combo = substr($input, 5, 5);
             # If the combination matches the user's code
@@ -324,11 +306,10 @@ if ($startup_input == 'eXit') {
     while (!in_array($input, ['leave', 'look tunnel', 'go to tunnel', 'go tunnel', 'enter tunnel'])) {
         if (in_array($input, ['look', 'look around'])) {
             slow_print($time_text, "\nThe walls of the dungeon are damp.\nThe only way forward is through the tunnel.\nThe light on the other side is blinding.", true);
-            $input = readline('> ');
         } else {
             slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
-            $input = readline('> ');
         }
+        $input = readline('> ');
     }
     # If the user has already chosen to leave
     if ($left_switch) {
@@ -376,18 +357,12 @@ if ($startup_input == 'eXit') {
     while (!in_array($input, ['get on boat', 'look boat', 'look ship', 'look at boat', 'get on ship', 'look at ship'])) {
         if (in_array($input, ['read note', 'read', 'look note', 'look at note'])) {
             slow_print($time_text, "\nThe note says, \"Don't leave me here.\"\nIt is too late.", true);
-            $input = readline('> ');
         } else {
             slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
-            $input = readline('> ');
         }
+        $input = readline('> ');
     }
     slow_print($time_text, "\nAs you board the ship, you can't help but look back at the\ncollapsed remains of the tunnel.\nYou're heading to a new world, whether you like it or not.", true);
     logo_space($time_logo);
 }
 echo "\n";
-
-
-
-
-?>
